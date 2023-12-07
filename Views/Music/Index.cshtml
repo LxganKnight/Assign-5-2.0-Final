@@ -1,0 +1,125 @@
+﻿@model Assign_5_2._0.Models.MusicGenreViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    /* Add your custom styles here */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 30px;
+        color: #333;
+    }
+
+    form {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+        form p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+    table {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    th,
+    td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+        th:first-child,
+        td:first-child {
+            padding-left: 20px;
+        }
+
+        th:last-child,
+        td:last-child {
+            text-align: center;
+        }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+    label {
+        display: block;
+        text-align: center; 
+    }
+</style>
+
+<h1>The Best Music Store</h1>
+
+<form asp-controller="Music" asp-action="Index" method="get">
+    <p>
+        Genre:
+        <select asp-for="MusicGenre" asp-items="Model.Genres">
+            <option value="">All</option>
+        </select>
+
+        Performers:
+        <select asp-for="MusicPerformers" asp-items="Model.Performers">
+            <option value="">All</option>
+        </select>
+
+        <input type="submit" value="Filter" />
+        <input type="submit" value="Send to Shopping Cart" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Musics![0].title)</th>
+            <th>@Html.DisplayNameFor(model => model.Musics![0].performer)</th>
+            <th>@Html.DisplayNameFor(model => model.Musics![0].genre)</th>
+            <th>@Html.DisplayNameFor(model => model.Musics![0].price)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Musics!)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.title)</td>
+                <td>@Html.DisplayFor(modelItem => item.performer)</td>
+                <td>@Html.DisplayFor(modelItem => item.genre)</td>
+                <td>@Html.DisplayFor(modelItem => item.price)</td>
+                <td>
+                    <label>
+                        <input type="checkbox" asp-action="Details" asp-route-id="@item.id" />
+                        Add to Cart
+                    </label>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+    
